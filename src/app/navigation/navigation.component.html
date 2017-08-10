@@ -1,3 +1,24 @@
-<a routerLink="/budget">Budget</a>
-<a routerLink="/reports">Reports</a>
-<a routerLink="/ledger">All Accounts</a>
+<nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+    <button class="navbar-toggler" type="button" 
+        (click)="navbarCollapsed = !navbarCollapsed"
+        data-toggle="collapse" 
+        aria-controls="primary-navigation"
+        [attr.aria-expanded]="!navbarCollapsed"
+        aria-expanded="false" 
+        aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+    <div class="collapse navbar-collapse" [ngbCollapse]="navbarCollapsed" id="primary-navigation">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+                <a class="nav-link" routerLink="/budget">Budget</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/reports">Reports</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/ledger">Ledger</a>
+            </li>
+        </ul>
+    </div>
+</nav>

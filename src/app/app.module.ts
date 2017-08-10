@@ -6,6 +6,7 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { BudgetComponent } from './budget/budget.component';
 import { ReportsComponent } from './reports/reports.component';
 import { LedgerComponent } from './ledger/ledger.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { LedgerComponent } from './ledger/ledger.component';
     LedgerComponent
   ],
   imports: [
+    NgbModule.forRoot(),
     BrowserModule
   ],
   providers: [],
