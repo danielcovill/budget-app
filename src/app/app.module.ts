@@ -7,6 +7,27 @@ import { BudgetComponent } from './budget/budget.component';
 import { ReportsComponent } from './reports/reports.component';
 import { LedgerComponent } from './ledger/ledger.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { RouterModule, Routes } from '@angular/router';
+
+const appRoutes: Routes = [
+  {
+    path: 'budget',
+    component: BudgetComponent,
+  },
+  {
+    path: 'ledger',
+    component: LedgerComponent,
+  },
+  {
+    path: 'reports',
+    component: ReportsComponent,
+  },
+  {
+    path: '',
+    redirectTo: '/reports',
+    pathMatch: 'full'
+  }
+];
 
 @NgModule({
   declarations: [
@@ -18,7 +39,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   ],
   imports: [
     NgbModule.forRoot(),
-    BrowserModule
+    RouterModule.forRoot(
+      appRoutes,
+      { enableTracing: true }
+    ),
+    BrowserModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
