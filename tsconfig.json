@@ -3,11 +3,12 @@
   "compilerOptions": {
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
+    "alwaysStrict": true,
     "declaration": false,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es5",
+    "target": "ES2016",
     "typeRoots": [
       "node_modules/@types"
     ],
