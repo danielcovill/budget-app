@@ -8,6 +8,7 @@ import { ReportsComponent } from './reports/reports.component';
 import { LedgerComponent } from './ledger/ledger.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule, Routes } from '@angular/router';
+import { SettingsComponent } from './settings/settings.component';
 
 const appRoutes: Routes = [
   {
@@ -35,7 +36,8 @@ const appRoutes: Routes = [
     NavigationComponent,
     BudgetComponent,
     ReportsComponent,
-    LedgerComponent
+    LedgerComponent,
+    SettingsComponent
   ],
   imports: [
     NgbModule.forRoot(),
