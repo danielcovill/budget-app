@@ -2,10 +2,10 @@
     <a class="navbar-brand">$</a>
 
     <button class="navbar-toggler" type="button" 
-        (click)="navbarCollapsed = !navbarCollapsed"
+        (click)="navbarCollapsed = !navbarCollapsed" 
         data-toggle="collapse" 
         aria-controls="primary-navigation"
-        [attr.aria-expanded]="!navbarCollapsed"
+        [attr.aria-expanded]="!navbarCollapsed" 
         aria-expanded="false" 
         aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -24,6 +24,13 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" routerLink="/settings" routerLinkActive="active">Settings</a>
+            </li>
+            <li ngbDropdown>
+                <a class="nav-link" id="dbMenu" ngbDropdownToggle>Database</a>
+                <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="dbMenu">
+                    <button class="dropdown-item">New Database</button>
+                    <button class="dropdown-item">Open Database</button>
+                </div>
             </li>
         </ul>
     </div>

@@ -9,6 +9,7 @@ import { LedgerComponent } from './ledger/ledger.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule, Routes } from '@angular/router';
 import { SettingsComponent } from './settings/settings.component';
+import { CreateDatabaseComponent } from './createdatabase/createdatabase.component';
 
 const appRoutes: Routes = [
   {
@@ -24,6 +25,14 @@ const appRoutes: Routes = [
     component: ReportsComponent,
   },
   {
+    path: 'settings',
+    component: SettingsComponent,
+  },
+  {
+    path: 'createdatabase',
+    component: CreateDatabaseComponent,
+  },
+  {
     path: '',
     redirectTo: '/reports',
     pathMatch: 'full'
@@ -37,7 +46,8 @@ const appRoutes: Routes = [
     BudgetComponent,
     ReportsComponent,
     LedgerComponent,
-    SettingsComponent
+    SettingsComponent,
+    CreateDatabaseComponent
   ],
   imports: [
     NgbModule.forRoot(),
@@ -48,6 +58,6 @@ const appRoutes: Routes = [
     BrowserModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [ AppComponent ]
 })
 export class AppModule { }
