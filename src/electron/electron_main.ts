@@ -1,4 +1,5 @@
 import { BrowserWindow } from 'electron';
+import * as sqlite3 from 'sqlite3';
 
 export default class Main {
     static mainWindow: Electron.BrowserWindow;
@@ -20,10 +21,16 @@ export default class Main {
     }
 
     static main(app: Electron.App, browserWindow: typeof BrowserWindow) {
-        // we pass the Electron.App object and the
-        // Electron.BrowserWindow into this function
-        // so this class has no dependencies.  This
-        // makes the code easier to write tests for
+        // set up the settings database
+        const settingsDB = new sqlite3.Database('settings.db');
+        let settingsExist = false;
+        settingsDB.get("SELECT COUNT(1) FROM sqlite_master WHERE type='table' AND name='Settings';", undefined, (err, row) => {
+            settingsExist = row[0] > 0;
+        });
+
+        if (!settingsExist) {
+            alert('need to create settings table');
+        }
 
         Main.BrowserWindow = browserWindow;
         Main.application = app;
