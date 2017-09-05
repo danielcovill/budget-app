@@ -1,10 +1,11 @@
 import { BrowserWindow } from 'electron';
-import * as sqlite3 from 'sqlite3';
+import { Settings } from './utils/settings';
 
 export default class Main {
     static mainWindow: Electron.BrowserWindow;
     static BrowserWindow: typeof BrowserWindow;
     static application: Electron.App;
+    static appSettings: Settings;
 
     private static onWindowAllClosed() {
         Main.application.quit();
@@ -22,19 +23,18 @@ export default class Main {
 
     static main(app: Electron.App, browserWindow: typeof BrowserWindow) {
         // set up the settings database
-        const settingsDB = new sqlite3.Database('settings.db');
-        let settingsExist = false;
-        settingsDB.get("SELECT COUNT(1) FROM sqlite_master WHERE type='table' AND name='Settings';", undefined, (err, row) => {
-            settingsExist = row[0] > 0;
-        });
-
-        if (!settingsExist) {
-            alert('need to create settings table');
-        }
-
-        Main.BrowserWindow = browserWindow;
-        Main.application = app;
-        Main.application.on('window-all-closed', Main.onWindowAllClosed);
-        Main.application.on('ready', Main.onReady);
+        this.appSettings = Settings.GetInstance();
+        this.appSettings.initializeSettings(false).then(
+            (result: void) => {
+                Main.BrowserWindow = browserWindow;
+                Main.application = app;
+                Main.application.on('window-all-closed', Main.onWindowAllClosed);
+                Main.application.on('ready', Main.onReady);
+            }
+        ).catch(
+            (err: Error) => {
+                throw err;
+            }
+        );
     }
 }

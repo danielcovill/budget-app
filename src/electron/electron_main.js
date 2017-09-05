@@ -1,6 +1,6 @@
 "use strict";
 exports.__esModule = true;
-var sqlite3 = require("sqlite3");
+var settings_1 = require("./utils/settings");
 var Main = (function () {
     function Main() {
     }
@@ -17,18 +17,15 @@ var Main = (function () {
     };
     Main.main = function (app, browserWindow) {
         // set up the settings database
-        var settingsDB = new sqlite3.Database('settings.db');
-        var settingsExist = false;
-        settingsDB.get("SELECT COUNT(1) FROM sqlite_master WHERE type='table' AND name='Settings';", undefined, function (err, row) {
-            settingsExist = row[0] > 0;
+        this.appSettings = settings_1.Settings.GetInstance();
+        this.appSettings.initializeSettings(false).then(function (result) {
+            Main.BrowserWindow = browserWindow;
+            Main.application = app;
+            Main.application.on('window-all-closed', Main.onWindowAllClosed);
+            Main.application.on('ready', Main.onReady);
+        })["catch"](function (err) {
+            throw err;
         });
-        if (!settingsExist) {
-            alert('need to create settings table');
-        }
-        Main.BrowserWindow = browserWindow;
-        Main.application = app;
-        Main.application.on('window-all-closed', Main.onWindowAllClosed);
-        Main.application.on('ready', Main.onReady);
     };
     return Main;
 }());

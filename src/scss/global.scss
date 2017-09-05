@@ -3,4 +3,5 @@
 body {
     color: $primary-color;
     font-family: $font-stack;
+    -webkit-user-drag: none;
 }
