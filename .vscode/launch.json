@@ -1,0 +1,20 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Debug Main Electron Process",
+        "type": "node",
+        "request": "launch",
+        "cwd": "${workspaceRoot}",
+        "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron",
+        "args" : ["dist/electron/electron_app", "--enable-logging"]
+      },
+      {
+          "name": "Attach",
+          "type": "node",
+          "request": "attach",
+          "port": 5858,
+          "sourceMaps": false
+      }
+    ]
+  }

@@ -23,14 +23,19 @@ export default class Main {
     }
 
     static main(app: Electron.App, browserWindow: typeof BrowserWindow) {
-        // set up the settings database
+        // initialize the settings database if necessary
+
         this.appSettings = Settings.GetInstance();
         this.appSettings.initializeSettings(false).then(
             (result: void) => {
                 Main.BrowserWindow = browserWindow;
                 Main.application = app;
                 Main.application.on('window-all-closed', Main.onWindowAllClosed);
-                Main.application.on('ready', Main.onReady);
+                if (app.isReady()) {
+                    Main.onReady();
+                } else {
+                    Main.application.on('ready', Main.onReady);
+                }
             }
         ).catch(
             (err: Error) => {
