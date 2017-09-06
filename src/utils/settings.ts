@@ -35,7 +35,7 @@ export class Settings {
                 Setting TEXT NOT NULL,
                 Value TEXT NOT NULL);
             INSERT INTO Settings ('Setting', 'Value') VALUES
-                ('app.Width', '1280'),~
+                ('app.Width', '1280'),
                 ('app.Height', '1024');
             commit;`;
             this.settingsDB.exec(query, (err) => { (err) ? reject(err) : resolve(); });
