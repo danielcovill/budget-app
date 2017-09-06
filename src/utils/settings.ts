@@ -1,11 +1,11 @@
-import * as sqlite from 'sqlite3';
+import { Database } from 'sqlite3';
 
 export class Settings {
     static settings: Settings;
-    settingsDB: sqlite.Database;
+    settingsDB: Database;
 
     private constructor() {
-        this.settingsDB = new sqlite.Database('settings.db');
+        this.settingsDB = new Database('settings.db');
     }
 
     public static GetInstance(): Settings {
@@ -16,7 +16,7 @@ export class Settings {
     }
 
     public initializeSettings(resetIfExists: boolean): Promise<void> {
-        const result = new Promise<void>((resolve, reject) => {
+        return new Promise<void>((resolve, reject) => {
             if (!resetIfExists) {
                 this.settingsInitialized().then(
                     (val: boolean) => {
@@ -31,22 +31,20 @@ export class Settings {
             begin;
             DROP TABLE IF EXISTS Settings;
             CREATE TABLE 'Settings' (
-                Id INT PRIMARY KEY NOT NULL,
+                Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
                 Setting TEXT NOT NULL,
                 Value TEXT NOT NULL);
-            INSERT INTO Settings ['Setting', 'Value'] VALUES
-                (['Width', '1280']),
-                (['Height', '1024']);
+            INSERT INTO Settings ('Setting', 'Value') VALUES
+                ('app.Width', '1280'),~
+                ('app.Height', '1024');
             commit;`;
-            this.settingsDB.exec(query, (err) => { reject(err); });
-            resolve();
+            this.settingsDB.exec(query, (err) => { (err) ? reject(err) : resolve(); });
         });
-        return result;
     }
 
     public settingsInitialized(): Promise<boolean> {
         const query = "SELECT COUNT(1) FROM sqlite_master WHERE type='table' AND name='Settings';";
-        const result = new Promise<boolean>((resolve, reject) => {
+        return new Promise<boolean>((resolve, reject) => {
             this.settingsDB.get(query, undefined, (err, row) => {
                 if (err) {
                     reject(err);
@@ -59,6 +57,5 @@ export class Settings {
                 }
             });
         });
-        return result;
     }
 }

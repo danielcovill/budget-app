@@ -33,6 +33,8 @@ npm-debug.log
 testem.log
 /typings
 yarn-error.log
+settings.db
+settings.db-journal
 
 # e2e
 /e2e/*.js

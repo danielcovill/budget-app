@@ -10,8 +10,9 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build-electron": "tsc src/electron/*.ts && ng build --base-href . && cp src/electron/* dist/",
-    "electron": "npm run build-electron && electron dist/",
+    "build-electron": "ng build --base-href . && tsc -p src/electron",
+    "run-electron": "electron dist/electron/electron_app",
+    "electron": "npm run build-electron && electron dist/electron/electron_app",
     "rebuild": "electron-rebuild -f -w sqlite3"
   },
   "private": true,
