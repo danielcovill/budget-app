@@ -1,20 +1,36 @@
 {
-    "version": "0.2.0",
-    "configurations": [
-      {
-        "name": "Debug Main Electron Process",
-        "type": "node",
-        "request": "launch",
-        "cwd": "${workspaceRoot}",
-        "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron",
-        "args" : ["dist/electron/electron_app", "--enable-logging"]
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug Main Process",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceRoot}",
+      "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron",
+      "windows": {
+        "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron.cmd"
       },
-      {
-          "name": "Attach",
-          "type": "node",
-          "request": "attach",
-          "port": 5858,
-          "sourceMaps": false
-      }
-    ]
-  }
+      "program": "${workspaceRoot}/src/electron/electron_app.ts",
+      "outFiles": [
+         "${workspaceRoot}/dist/**/*.js"
+      ],
+      "protocol": "inspector",
+      "stopOnEntry": true
+    },
+    {
+      "name": "Debug Renderer Process",
+      "type": "chrome",
+      "request": "launch",
+      "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron",
+      "windows": {
+        "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron.cmd"
+      },
+      "runtimeArgs": [
+        "http://localhost:4000",
+        "--remote-debugging-port=9222"
+      ],
+      "sourceMaps": true,
+      "webRoot": "${workspaceRoot}" // ???
+    }
+  ]
+}

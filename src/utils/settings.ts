@@ -15,9 +15,9 @@ export class Settings {
         return Settings.settings;
     }
 
-    public initializeSettings(resetIfExists: boolean): Promise<void> {
+    public initializeSettings(forceReset: boolean): Promise<void> {
         return new Promise<void>((resolve, reject) => {
-            if (!resetIfExists) {
+            if (!forceReset) {
                 this.settingsInitialized().then(
                     (val: boolean) => {
                         if (val) {
@@ -32,30 +32,49 @@ export class Settings {
             DROP TABLE IF EXISTS Settings;
             CREATE TABLE 'Settings' (
                 Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-                Setting TEXT NOT NULL,
+                Name TEXT UNIQUE NOT NULL,
                 Value TEXT NOT NULL);
-            INSERT INTO Settings ('Setting', 'Value') VALUES
-                ('app.Width', '1280'),
-                ('app.Height', '1024');
             commit;`;
             this.settingsDB.exec(query, (err) => { (err) ? reject(err) : resolve(); });
         });
     }
 
     public settingsInitialized(): Promise<boolean> {
-        const query = "SELECT COUNT(1) FROM sqlite_master WHERE type='table' AND name='Settings';";
+        const query = "SELECT COUNT(1) AS dbCount FROM sqlite_master WHERE type='table' AND name='Settings';";
         return new Promise<boolean>((resolve, reject) => {
             this.settingsDB.get(query, undefined, (err, row) => {
                 if (err) {
                     reject(err);
                 } else {
-                    if (row[0] > 1) {
+                    if (row.dbCount > 1) {
                         reject('Multiple settings databases detected.');
                     } else {
-                        resolve(row[0] === 1);
+                        resolve(row.dbCount === 1);
                     }
                 }
             });
+        });
+    }
+
+    public getSetting(settingName: string): Promise<any> {
+        const query = 'SELECT Value FROM Settings WHERE Name=?;';
+        return new Promise<any>((resolve, reject) => {
+            this.settingsDB.get(query, settingName, (err, row) => {
+                if (err) {
+                    reject(err);
+                } else if (!row) {
+                    reject(settingName + ' settting not found');
+                } else {
+                    resolve(row.Value);
+                }
+            });
+        });
+    }
+
+    public setSetting(settingName: string, settingValue: any): Promise<void> {
+        const query = 'INSERT OR REPLACE INTO Settings (Name, Value) VALUES (?, ?);';
+        return new Promise<void>((resolve, reject) => {
+            this.settingsDB.run(query, [settingName, settingValue], (err) => { (err) ? reject(err) : resolve(); });
         });
     }
 }
