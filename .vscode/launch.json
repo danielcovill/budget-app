@@ -1,4 +1,5 @@
 {
+  // https://github.com/octref/vscode-electron-debug/blob/master/electron-quick-start-es6/.vscode/launch.json
   "version": "0.2.0",
   "configurations": [
     {

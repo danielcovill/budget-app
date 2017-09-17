@@ -1,15 +1,16 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { BudgetComponent } from './budget/budget.component';
 import { ReportsComponent } from './reports/reports.component';
 import { LedgerComponent } from './ledger/ledger.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { RouterModule, Routes } from '@angular/router';
 import { SettingsComponent } from './settings/settings.component';
-import { CreateDatabaseComponent } from './createdatabase/createdatabase.component';
+import { CreateDatabaseComponent } from './create-database/create-database.component';
+import { OpenDatabaseComponent } from './open-database/open-database.component';
 
 const appRoutes: Routes = [
   {
@@ -33,6 +34,10 @@ const appRoutes: Routes = [
     component: CreateDatabaseComponent,
   },
   {
+    path: 'opendatabase',
+    component: OpenDatabaseComponent,
+  },
+  {
     path: '',
     redirectTo: '/reports',
     pathMatch: 'full'
@@ -47,7 +52,8 @@ const appRoutes: Routes = [
     ReportsComponent,
     LedgerComponent,
     SettingsComponent,
-    CreateDatabaseComponent
+    CreateDatabaseComponent,
+    OpenDatabaseComponent
   ],
   imports: [
     NgbModule.forRoot(),

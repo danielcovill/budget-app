@@ -44,10 +44,12 @@ export default class Main {
              * first run and the values haven't been initialized yet.
              */
         }).then(() => {
-            // finally
+            // Set up the browser window however it was left last time, or defaults
             Main.mainWindow = new Main.BrowserWindow({ height: Number(heightResult), width: Number(widthResult) });
             Main.mainWindow.on('close', Main.onClose);
             Main.mainWindow.on('resize', Main.onResize);
+
+            // Load up the main window with the New/Open Database picker
             Main.mainWindow.loadURL('file://' + join(__dirname, '..') + '/index.html');
         });
 

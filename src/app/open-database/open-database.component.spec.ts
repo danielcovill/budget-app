@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CreatedatabaseComponent } from './createdatabase.component';
+import { OpenDatabaseComponent } from './open-database.component';
 
-describe('CreatedatabaseComponent', () => {
-  let component: CreatedatabaseComponent;
-  let fixture: ComponentFixture<CreatedatabaseComponent>;
+describe('OpenDatabaseComponent', () => {
+  let component: OpenDatabaseComponent;
+  let fixture: ComponentFixture<OpenDatabaseComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CreatedatabaseComponent ]
+      declarations: [ OpenDatabaseComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CreatedatabaseComponent);
+    fixture = TestBed.createComponent(OpenDatabaseComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

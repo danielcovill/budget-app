@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-createdatabase',
-  templateUrl: './createdatabase.component.html',
-  styleUrls: ['./createdatabase.component.scss']
+  selector: 'app-create-database',
+  templateUrl: './create-database.component.html',
+  styleUrls: ['./create-database.component.scss']
 })
 export class CreateDatabaseComponent implements OnInit {
 
