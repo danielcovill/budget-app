@@ -1,4 +1,4 @@
-import { BrowserWindow, app } from 'electron';
+import { BrowserWindow, app, ipcMain } from 'electron';
 import { Settings } from '../utils/settings';
 import { join } from 'path';
 
@@ -36,6 +36,7 @@ export default class Main {
         let widthResult = 800;
 
         Promise.all([heightPromise, widthPromise]).then((res: Array<any>) => {
+            // Get main window placement info
             heightResult = res[0];
             widthResult = res[1];
         }).catch((err: Error) => {
@@ -52,7 +53,6 @@ export default class Main {
             // Load up the main window with the New/Open Database picker
             Main.mainWindow.loadURL('file://' + join(__dirname, '..') + '/index.html');
         });
-
     }
 
     /*

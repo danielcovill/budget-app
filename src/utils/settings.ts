@@ -31,9 +31,16 @@ export class Settings {
             begin;
             DROP TABLE IF EXISTS Settings;
             CREATE TABLE 'Settings' (
-                Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                Id INTEGER PRIMARY KEY,
                 Name TEXT UNIQUE NOT NULL,
                 Value TEXT NOT NULL);
+            DROP TABLE IF EXISTS RecentDatabases;
+            CREATE TABLE 'RecentDatabases' (
+                Id INTEGER PRIMARY KEY,
+                Name TEXT UNIQUE NOT NULL,
+                FileLocation TEXT NOT NULL,
+                LastAccessed TEXT NOT NULL);
+            )
             commit;`;
             this.settingsDB.exec(query, (err) => { (err) ? reject(err) : resolve(); });
         });
@@ -51,6 +58,26 @@ export class Settings {
                     } else {
                         resolve(row.dbCount === 1);
                     }
+                }
+            });
+        });
+    }
+
+    public markDatabaseOpened(databaseName: string, fileLocation: string) {
+        const query = "INSERT INTO RecentDatabases (Name, FileLocation, LastAccessed) VALUES (?, ?, date('now'))";
+        return new Promise<void>((resolve, reject) => {
+            this.settingsDB.run(query, [databaseName, fileLocation], (err) => { (err) ? reject(err) : resolve(); });
+        });
+    }
+
+    public getDatabaseList(): Promise<any[]> {
+        const query = 'SELECT Name, FileLocation, LastAccessed FROM RecentDatabases ORDER BY LastAccessed DESC';
+        return new Promise<any[]>((resolve, reject) => {
+            this.settingsDB.all(query, undefined, (err, rows) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(rows);
                 }
             });
         });

@@ -30,16 +30,16 @@ const appRoutes: Routes = [
     component: SettingsComponent,
   },
   {
-    path: 'createdatabase',
+    path: 'create-database',
     component: CreateDatabaseComponent,
   },
   {
-    path: 'opendatabase',
+    path: 'open-database',
     component: OpenDatabaseComponent,
   },
   {
     path: '',
-    redirectTo: '/reports',
+    redirectTo: '/open-database',
     pathMatch: 'full'
   }
 ];
