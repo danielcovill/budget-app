@@ -1,18 +1,20 @@
 import { Database } from 'sqlite3';
+import { RecentDatabase } from './recentDatabase';
+import { environment } from '../environments/environment';
 
-export class Settings {
-    static settings: Settings;
+export class SettingsService {
+    static settings: SettingsService;
     settingsDB: Database;
 
     private constructor() {
-        this.settingsDB = new Database('settings.db');
+        this.settingsDB = new Database(environment.databaseName);
     }
 
-    public static GetInstance(): Settings {
-        if (!Settings.settings) {
-            Settings.settings = new Settings();
+    public static GetInstance(): SettingsService {
+        if (!SettingsService.settings) {
+            SettingsService.settings = new SettingsService();
         }
-        return Settings.settings;
+        return SettingsService.settings;
     }
 
     public initializeSettings(forceReset: boolean): Promise<void> {
@@ -70,7 +72,7 @@ export class Settings {
         });
     }
 
-    public getDatabaseList(): Promise<any[]> {
+    public getDatabaseList(): Promise<RecentDatabase[]> {
         const query = 'SELECT Name, FileLocation, LastAccessed FROM RecentDatabases ORDER BY LastAccessed DESC';
         return new Promise<any[]>((resolve, reject) => {
             this.settingsDB.all(query, undefined, (err, rows) => {

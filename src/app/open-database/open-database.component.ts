@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ipcRenderer } from 'electron';
+import { RecentDatabase } from '../../utils/recentDatabase';
 
 @Component({
   selector: 'app-open-database',

@@ -1,12 +1,12 @@
 import { BrowserWindow, app, ipcMain } from 'electron';
-import { Settings } from '../utils/settings';
+import { SettingsService } from '../utils/settings.service';
 import { join } from 'path';
 
 export default class Main {
     static mainWindow: Electron.BrowserWindow;
     static BrowserWindow: typeof BrowserWindow;
     static application: Electron.App;
-    static appSettings: Settings;
+    static appSettings: SettingsService;
     static mainWindowId = 'app';
 
     /*
@@ -56,13 +56,18 @@ export default class Main {
     }
 
     /*
+    * Remote Functions
+    */
+
+
+    /*
     * Helper functions
     */
 
     private static storeWindowDetails(window: Electron.BrowserWindow, windowName: string): Promise<any> {
         const sizeArray = window.getSize();
         // const positionArray = window.getPosition();
-        this.appSettings = Settings.GetInstance();
+        this.appSettings = SettingsService.GetInstance();
         const widthPromise = this.appSettings.setSetting(windowName + '.Width', sizeArray[0]);
         const heightPromise = this.appSettings.setSetting(windowName + '.Height', sizeArray[1]);
         return Promise.all([widthPromise, heightPromise]);
@@ -70,7 +75,7 @@ export default class Main {
 
     static main(app: Electron.App, browserWindow: typeof BrowserWindow) {
         // initialize the settings database if necessary
-        this.appSettings = Settings.GetInstance();
+        this.appSettings = SettingsService.GetInstance();
         this.appSettings.initializeSettings(false).then(
             (result: void) => {
                 Main.BrowserWindow = browserWindow;
