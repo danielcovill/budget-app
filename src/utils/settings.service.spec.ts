@@ -1,17 +1,22 @@
-// import { SettingsService } from './settings.service';
+/*
+
+// Turns out you can't use jasmine tests for sqlite3. Mocha is required.
+
+import { SettingsService } from './settings.service';
 import { RecentDatabase } from './recentDatabase';
 import { environment } from '../environments/environment';
 import * as fs from 'fs';
 
 
 describe('Settings service', () => {
-    // const settingsService = SettingsService.GetInstance();
+    let settingsService: SettingsService;
 
     beforeEach(() => {
+        settingsService = SettingsService.GetInstance();
     });
 
 });
-  /*  it('can properly report if the settings DB has not been initialized', () => {
+    it('can properly report if the settings DB has not been initialized', () => {
         // remove the settings test db
         fs.unlinkSync(environment.databaseName);
         settingsService.settingsInitialized().then((result: boolean) => {
