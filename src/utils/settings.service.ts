@@ -7,6 +7,7 @@ export class SettingsService {
     settingsDB: Database;
 
     private constructor() {
+        // TODO: eventually this should be set up to create the DB in a user app data folder
         this.settingsDB = new Database(environment.databaseName);
     }
 

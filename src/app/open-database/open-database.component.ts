@@ -8,10 +8,12 @@ import { RecentDatabase } from '../../utils/recentDatabase';
   styleUrls: ['./open-database.component.scss']
 })
 export class OpenDatabaseComponent implements OnInit {
+  recentDatabases: RecentDatabase[];
 
   constructor() { }
 
   ngOnInit() {
+    // this.recentDatabases =
   }
 
 }
