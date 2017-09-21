@@ -74,7 +74,7 @@ export class SettingsService {
 
     public getDatabaseList(): Promise<RecentDatabase[]> {
         const query = 'SELECT Name, FileLocation, LastAccessed FROM RecentDatabases ORDER BY LastAccessed DESC';
-        return new Promise<any[]>((resolve, reject) => {
+        return new Promise<RecentDatabase[]>((resolve, reject) => {
             this.settingsDB.all(query, undefined, (err, rows) => {
                 if (err) {
                     reject(err);
