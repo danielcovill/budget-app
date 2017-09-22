@@ -5,3 +5,13 @@ body {
     font-family: $font-stack;
     -webkit-user-drag: none;
 }
+
+ins {
+    font-size: .75rem;
+    color: $light-text;
+    text-decoration: none;
+}
+
+ul {
+  list-style: none;  
+}
