@@ -36,6 +36,11 @@ const appRoutes: Routes = [
   {
     path: 'open-database',
     component: OpenDatabaseComponent,
+  },
+  {
+    path: '',
+    redirectTo: '/open-database',
+    pathMatch: 'full'
   }
 ];
 
