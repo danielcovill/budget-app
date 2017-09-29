@@ -1,5 +1,5 @@
 import { Database } from 'sqlite3';
-import { RecentDatabase } from './recentDatabase';
+import { RecentDatabase } from './RecentDatabase';
 import { environment } from '../environments/environment';
 
 export class SettingsService {

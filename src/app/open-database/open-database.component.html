@@ -7,19 +7,15 @@
       <div class="row">
         <div class="col-xl-5">
           <!--Create new db button-->
-          <a class="btn btn-primary btn-lg btn-block my-2" href="#" role="button">New Budget</a>
+          <a (click)="createBudget($event)" class="btn btn-primary btn-lg btn-block my-2" role="button">New Budget</a>
           <!--Open db from fs button-->
-          <a class="btn btn-secondary btn-lg btn-block my-2" href="#" role="button">Open<span class="hide-small"> from Computer</span></a>
+          <a (click)="openBudget($event)" class="btn btn-secondary btn-lg btn-block my-2" role="button">Open<span class="hide-small"> from Computer</span></a>
         </div>
         <div class="col-xl-7">
           <!--List of known recent databases-->
-          <div class="btn btn-block btn-outline-primary my-2" href="#">
-            <div class="db-card">Database Name #1</div>
-            <ins class="text-right">24 November 2017</ins>
-          </div>
-          <div class="btn btn-block btn-outline-primary my-2" href="#">
-            <div class="db-card">Database reallyreallyreallyreallyreallyreallyreallyreallyreallyreallyreally long Name #2</div>
-            <ins class="text-right">24 November 2017</ins>
+          <div *ngFor="let recentDb of recentDatabases" class="btn btn-block btn-outline-primary my-2">
+            <div class="db-card">{{recentDb.Name}}</div>
+            <ins class="text-right">{{recentDb.LastAccess}}</ins>
           </div>
         </div>
       </div>

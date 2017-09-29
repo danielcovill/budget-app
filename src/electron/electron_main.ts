@@ -1,5 +1,7 @@
 import { BrowserWindow, app, ipcMain } from 'electron';
 import { SettingsService } from '../utils/settings.service';
+import { BudgetDbService } from '../utils/budget-db.service';
+import { RecentDatabase } from '../utils/RecentDatabase';
 import { join } from 'path';
 
 export default class Main {
@@ -55,10 +57,6 @@ export default class Main {
         });
     }
 
-    /*
-    * Remote Functions
-    */
-
 
     /*
     * Helper functions
@@ -73,13 +71,13 @@ export default class Main {
         return Promise.all([widthPromise, heightPromise]);
     }
 
-    static main(app: Electron.App, browserWindow: typeof BrowserWindow) {
+    static main(application: Electron.App, browserWindow: typeof BrowserWindow) {
         // initialize the settings database if necessary
         this.appSettings = SettingsService.GetInstance();
         this.appSettings.initializeSettings(false).then(
             (result: void) => {
                 Main.BrowserWindow = browserWindow;
-                Main.application = app;
+                Main.application = application;
                 Main.application.on('window-all-closed', Main.onWindowAllClosed);
                 if (app.isReady()) {
                     Main.onReady();
@@ -89,6 +87,14 @@ export default class Main {
             }
         ).catch((err: Error) => {
             throw err;
+        });
+
+        // set up our ipc listeners
+        ipcMain.on('create-budget', BudgetDbService.createDatabase);
+
+        ipcMain.on('get-recent-databases', async () => {
+            const dbList: RecentDatabase[] = await this.appSettings.getDatabaseList();
+            ipcMain.emit('get-recent-database-reply', dbList);
         });
     }
 }

@@ -3,7 +3,7 @@
 // Turns out you can't use jasmine tests for sqlite3. Mocha is required.
 
 import { SettingsService } from './settings.service';
-import { RecentDatabase } from './recentDatabase';
+import { RecentDatabase } from './RecentDatabase';
 import { environment } from '../environments/environment';
 import * as fs from 'fs';
 

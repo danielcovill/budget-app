@@ -1,9 +1,8 @@
 {
-  // https://github.com/octref/vscode-electron-debug/blob/master/electron-quick-start-es6/.vscode/launch.json
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Debug Main Process",
+      "name": "Electron Main",
       "type": "node",
       "request": "launch",
       "cwd": "${workspaceRoot}",
@@ -15,23 +14,29 @@
       "outFiles": [
          "${workspaceRoot}/dist/**/*.js"
       ],
+      "runtimeArgs": [
+        "--remote-debugging-port=9223"
+      ],
       "protocol": "inspector",
       "stopOnEntry": true
     },
     {
-      "name": "Debug Renderer Process",
+      "name": "Electron Renderer",
       "type": "chrome",
-      "request": "launch",
-      "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron",
-      "windows": {
-        "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron.cmd"
-      },
-      "runtimeArgs": [
-        "http://localhost:4000",
-        "--remote-debugging-port=9222"
-      ],
+      "request": "attach",
       "sourceMaps": true,
-      "webRoot": "${workspaceRoot}" // ???
+      "port": 9223,
+      "webRoot": "${workspaceRoot}",
+      "timeout": 30000
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Electron All",
+      "configurations": [
+        "Electron Main",
+        "Electron Renderer"
+      ]
     }
   ]
 }
