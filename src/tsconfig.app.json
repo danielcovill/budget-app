@@ -4,7 +4,9 @@
     "outDir": "../out-tsc/app",
     "baseUrl": "./",
     "module": "es6",
-    "types": ["node"]
+    "types": [
+      "node"
+    ]
   },
   "exclude": [
     "test.ts",
