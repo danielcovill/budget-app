@@ -361,7 +361,7 @@ module.exports = {
     new NoEmitOnErrorsPlugin(),
     new CopyWebpackPlugin([
       {
-        "context": "/Users/dan/projects/budget-app/src/",
+        "context": ".",
         "to": "",
         "from": {
           "glob": "assets/**/*",
@@ -369,7 +369,7 @@ module.exports = {
         }
       },
       {
-        "context": "/Users/dan/projects/budget-app/src/",
+        "context": ".",
         "to": "",
         "from": {
           "glob": "favicon.ico",
